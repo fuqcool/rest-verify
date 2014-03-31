@@ -1,0 +1,6 @@
+{
+  "name": "rest-verify",
+  "scripts": {
+    "test": "jasmine-node --coffee spec/"
+  }
+}
