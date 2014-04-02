@@ -2,5 +2,9 @@
   "name": "rest-verify",
   "scripts": {
     "test": "jasmine-node --coffee spec/"
+  },
+  "dependencies": {
+    "js-yaml": "~3.0.2",
+    "underscore": "~1.6.0"
   }
 }
