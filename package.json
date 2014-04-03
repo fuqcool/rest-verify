@@ -1,6 +1,7 @@
 {
   "name": "rest-verify",
   "scripts": {
+    "start": "coffee src/main.coffee",
     "test": "jasmine-node --coffee spec/"
   },
   "dependencies": {

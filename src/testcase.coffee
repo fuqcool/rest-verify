@@ -5,12 +5,15 @@ module.exports =
   class TestCase
     constructor: ->
       @request = new HttpRequest
-      @checker = new ResponseChecker
+      @checker = new DataChecker
       @after = null
 
-    run: (case) ->
-      case.request.execute (data) ->
-        checker.check(data)
+    run: () ->
+      @_doRun(@)
 
-        if case.after?
-          @run(case.after)
+    _doRun: (test) ->
+      test.request.execute (data) =>
+        @checker.check(data)
+
+        if test.after?
+          @_doRun(test.after)

@@ -1,8 +1,10 @@
-HttpRequest = require './http'
+TestCase = require './testcase'
 
-req = new HttpRequest
+testcase = new TestCase()
 
-req.hostname = 'net4.ccs.neu.edu'
-req.path = '/home/fuqcool/blueos/rest/app'
-req.execute (data) -> console.log data
+testcase.request.path = '/home/fuqcool/blueos/rest/app'
+testcase.request.hostname = 'net4.ccs.neu.edu'
 
+testcase.checker.addPredicate(require './predicate/isArray.coffee')
+
+testcase.run()

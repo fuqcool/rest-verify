@@ -8,4 +8,3 @@ module.exports =
       obj
     catch (e)
       throw 'Error parsing test case: #{e.message}'
-
