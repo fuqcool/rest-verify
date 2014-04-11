@@ -6,7 +6,7 @@ module.exports =
     constructor: ->
       @request = new HttpRequest
       @checker = new DataChecker
-      @after = null
+      @then = null
 
     run: () ->
       @_doRun(@)
