@@ -8,13 +8,15 @@ module.exports =
     check: (data) ->
       p(data) for p in @predicates
 
-    addPredicate: (predicate, selector) ->
+    addPredicate: (selector, expectValue, predicate) ->
       @predicates.push do =>
         (data) =>
-          obj = @_selectObj data, selector
-          result = predicate obj
-          if not result
-            throw 'failed'
+          actualValue = @_selectObj data, selector
+          result = if predicate then predicate(actualValue) else actualValue
+
+          if result isnt expectValue
+            console.log 'error'
+            throw "expect #{selector} to be #{expectValue}, actual: #{result}"
           else
             console.log 'succeed'
 

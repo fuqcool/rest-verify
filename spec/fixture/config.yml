@@ -1,0 +1,19 @@
+request:
+  hostname: http://net4.ccs.neu.edu/
+  path: /home/fuqcool/blueos/rest/config
+  method: get
+
+response:
+  type: json
+
+  expect:
+    $.data:
+      isArray: true
+      len: 0
+
+then:
+  request:
+    path: /home/fuqcool/blueos/rest/file
+    method: get
+  response:
+    type: json

@@ -41,6 +41,8 @@ module.exports =
     _parse: (data) ->
       if @type is 'json'
         @_parseJson data
+      else
+        null
 
     _parseJson: (data) ->
       JSON.parse data
