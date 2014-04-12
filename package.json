@@ -7,6 +7,7 @@
   "dependencies": {
     "js-yaml": "~3.0.2",
     "underscore": "~1.6.0",
-    "jasmine-node": "^1.14.3"
+    "jasmine-node": "~1.14.3",
+    "optimist": "~0.6.1"
   }
 }

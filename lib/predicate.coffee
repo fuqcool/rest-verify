@@ -1,26 +1,26 @@
 fs = require 'fs'
 path = require 'path'
+_ = require 'underscore'
 
-predicates = {}
+predicatesCache = {}
 
 getPredicate = (name) ->
-  if predicates[name]? then predicates[name]? else null
+  if predicatesCache[name]? then predicatesCache[name] else null
 
 collectPredicates = (dir) ->
-  collection = {}
+  predicates = {}
   files = fs.readdirSync(dir)
   files = (f for f in files when path.extname(f) is '.coffee')
   for f in files
     name = path.basename f, '.coffee'
     try
-      collection[name] = require path.join(dir, f)
+      predicates[name] = require path.join(dir, f)
     catch
       console.warn "failed to load predicat: #{name}"
 
-  collection
 
-collectPredicates path.resolve(__dirname, '../predicate')
-
+  _.extend(predicatesCache, predicates)
 
 module.exports =
   get: getPredicate
+  collect: collectPredicates

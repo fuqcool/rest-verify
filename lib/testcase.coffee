@@ -13,7 +13,11 @@ module.exports =
 
     _doRun: (test) ->
       test.request.execute (data) =>
-        @checker.check(data)
+        try
+          test.checker.check(data)
+        catch e
+          console.log e.message
 
-        if test.after?
-          @_doRun(test.after)
+        debugger
+        if test.then?
+          @_doRun(test.then)

@@ -14,11 +14,11 @@ module.exports =
     execute: (cb) ->
       options =
         hostname: @hostname
-        host: @host
+        # host: @host
         port: @port
         path: @path
         method: @method
-        headers: @headers
+        # headers: @headers
 
       req = http.request options, (res) =>
         res.setEncoding 'utf8'

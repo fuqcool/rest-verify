@@ -11,7 +11,7 @@ describe 'parser', ->
       testcase = parser.parse content.toString()
 
     it 'should parse request', ->
-      expect(testcase.request.hostname).toBe 'http://net4.ccs.neu.edu/'
+      expect(testcase.request.hostname).toBe 'net4.ccs.neu.edu'
       expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/config'
       expect(testcase.request.method).toBe 'get'
 
@@ -24,6 +24,6 @@ describe 'parser', ->
       testcase = testcase.then
 
       # use parent options by default
-      expect(testcase.request.hostname).toBe 'http://net4.ccs.neu.edu/'
-      expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/file'
+      expect(testcase.request.hostname).toBe 'net4.ccs.neu.edu'
+      expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/app'
       expect(testcase.request.method).toBe 'get'

@@ -1,3 +1,3 @@
 _ = require 'underscore'
 
-module.exports = (obj) -> _.isObject(obj)
+module.exports = (obj) -> not _.isArray(obj) and _.isObject(obj)

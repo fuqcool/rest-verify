@@ -15,8 +15,8 @@ module.exports =
           result = if predicate then predicate(actualValue) else actualValue
 
           if result isnt expectValue
-            console.log 'error'
-            throw "expect #{selector} to be #{expectValue}, actual: #{result}"
+            throw new Error(
+              "failed: expect #{selector} to be #{expectValue}, actual: #{result}")
           else
             console.log 'succeed'
 
