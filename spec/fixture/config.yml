@@ -2,6 +2,8 @@ request:
   hostname: http://net4.ccs.neu.edu/
   path: /home/fuqcool/blueos/rest/config
   method: get
+  auth:
+    type: oauth2
 
 response:
   type: json

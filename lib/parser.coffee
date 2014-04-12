@@ -1,35 +1,32 @@
 yaml = require 'js-yaml'
 Testcase = require './testcase'
 _ = require 'underscore'
+predicate = require './predicate'
 
 module.exports =
   parse: (text) ->
     try
       obj = yaml.safeLoad text
-      @_makeTestcase(obj)
-    catch
+      @_makeTestcase(obj, null)
+    catch e
       throw "Error parsing test case: #{e.message}"
 
-  _makeTestcase: (obj) ->
+  _makeTestcase: (obj, parent) ->
     testcase = new Testcase
     if obj.request?
-      testcase.request.path = obj.request.path
-      testcase.request.hostname = obj.request.hostname
-      testcase.request.method = obj.request.method
+      _.extend(testcase.request,
+              if parent? then parent.request,
+              if obj? then obj.request)
 
     if obj.response?.expect?
       _.forEach obj.response.expect, (predicates, selector) =>
         _.forEach predicates, (value, pname) =>
-          testcase.checker.addPredicate(selector, value, @_getPredicate(pname))
+          if predicate.get(pname)?
+            testcase.checker.addPredicate(selector, value, predicate.get(pname))
+          else
+            console.warn "predicate does not exists: #{pname}"
 
     if obj.then?
-      testcase.then = @_makeTestcase(obj.then)
+      testcase.then = @_makeTestcase(obj.then, obj)
 
     testcase
-
-  _getPredicate: (pname) ->
-    predicate = "./predicate/#{pname}"
-    try
-      require predicate
-    catch
-      throw "failed to load predicate: #{pname}"

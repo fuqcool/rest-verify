@@ -20,8 +20,10 @@ describe 'parser', ->
         testcase.checker.check(data: [])
       ).not.toThrow()
 
-    xit 'should parse nested request', ->
+    it 'should parse nested request', ->
       testcase = testcase.then
+
+      # use parent options by default
       expect(testcase.request.hostname).toBe 'http://net4.ccs.neu.edu/'
       expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/file'
       expect(testcase.request.method).toBe 'get'
