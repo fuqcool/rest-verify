@@ -23,7 +23,7 @@ module.exports =
         # headers: @headers
 
       req = http.request options, (res) =>
-        debugger
+        console.log "#{@method} #{@hostname + @path}:#{@port} ..."
         res.setEncoding 'utf8'
         body = ''
 
@@ -31,11 +31,14 @@ module.exports =
           body += chunk
 
         res.on 'end', =>
-          cb?(
-            statusCode: res.statusCode
-            headers: @_normalizeObject res.headers
-            data: @_parse body
-          )
+          if res.statusCode is 200
+            cb?(
+              statusCode: res.statusCode
+              headers: @_normalizeObject res.headers
+              data: @_parse body
+            )
+          else
+            cb?(statusCode: res.statusCode)
 
       req.on 'end', ->
         console.log 'request end'

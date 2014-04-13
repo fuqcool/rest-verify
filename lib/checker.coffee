@@ -1,7 +1,9 @@
 _ = require 'underscore'
+predicateManager = require './predicate'
+EventEmitter = require('events').EventEmitter
 
 module.exports =
-  class DataChecker
+  class DataChecker extends EventEmitter
     constructor: () ->
       @predicates = []
 
@@ -11,14 +13,20 @@ module.exports =
     addPredicate: (selector, expectValue, predicate) ->
       @predicates.push do =>
         (data) =>
+          pname = predicateManager.getName(predicate)
           actualValue = @_selectObj data, selector
           result = if predicate then predicate(actualValue) else actualValue
 
           if result isnt expectValue
-            throw new Error(
-              "failed: expect #{selector} to be #{expectValue}, actual: #{result}")
+            console.log 'fail'
+            @emit('fail',
+                  selector: selector
+                  predicate: pname
+                  expectedValue: expectValue
+                  actualValue: result)
           else
-            console.log 'succeed'
+            console.log 'success'
+            @emit('success')
 
     _selectObj: (data, selector) ->
       try

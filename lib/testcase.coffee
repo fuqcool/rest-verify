@@ -13,10 +13,14 @@ module.exports =
 
     _doRun: (test) ->
       test.request.execute (response) =>
-        try
-          test.checker.check(response)
-        catch e
-          console.log e.message
+        test.checker.on 'fail', (e) =>
+          console.log """
+            Fail: expect #{e.selector}:#{e.predicate} to be #{e.expectedValue}, actual: #{e.actualValue}
+          """
+        test.checker.on 'success', =>
+          console.log 'success'
+
+        test.checker.check(response)
 
         if test.then?
           @_doRun(test.then)

@@ -4,42 +4,43 @@ describe 'Data checker', ->
   checker = null
   data = null
   pIs = jasmine.createSpy('is').andCallFake (v) -> v
+  successCallback = null
+  failCallback = null
 
   beforeEach ->
+    successCallback = jasmine.createSpy 'success'
+    failCallback = jasmine.createSpy 'fail'
+
     checker = new DataChecker
+    checker.on 'success', successCallback
+    checker.on 'fail', failCallback
+
     data =
-      'foo': 'bar'
-      'len': 100
+      foo: 'bar'
+      len: 100
 
-  describe 'check', ->
-    it 'should use equal as predicate when predicate is not specified', ->
-      checker.addPredicate 'foo', 'bar'
+  it 'should use equal as predicate when predicate is not specified', ->
+    checker.addPredicate 'foo', 'bar'
+    checker.check data
 
-      expect(->
-        checker.check(data)
-      ).not.toThrow()
+    expect(successCallback).toHaveBeenCalled()
 
-    it 'should take predicate', ->
-      checker.addPredicate 'foo', 'bar', pIs
+  it 'should take predicate', ->
+    checker.addPredicate 'foo', 'bar', pIs
+    checker.check data
 
-      expect(->
-        checker.check(data)
-      ).not.toThrow()
+    expect(pIs).toHaveBeenCalled()
+    expect(successCallback).toHaveBeenCalled()
 
-      expect(pIs).toHaveBeenCalled()
+  it 'should throw exception if predicate fails 1', ->
+    checker.addPredicate 'len', 99
+    checker.check data
 
-    it 'should throw exception if predicate fails 1', ->
-      checker.addPredicate 'len', 99
+    expect(failCallback).toHaveBeenCalled()
 
-      expect(->
-        checker.check(data)
-      ).toThrow()
+  it 'should throw exception if predicate fails 2', ->
+    checker.addPredicate 'len', 99, pIs
+    checker.check data
 
-    it 'should throw exception if predicate fails 2', ->
-      checker.addPredicate 'len', 99, pIs
-
-      expect(->
-        checker.check(data)
-      ).toThrow()
-
-      expect(pIs).toHaveBeenCalled()
+    expect(pIs).toHaveBeenCalled()
+    expect(failCallback).toHaveBeenCalled()

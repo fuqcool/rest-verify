@@ -7,6 +7,14 @@ predicatesCache = {}
 getPredicate = (name) ->
   if predicatesCache[name]? then predicatesCache[name] else null
 
+getName = (target) ->
+  result = null
+
+  _.forEach predicatesCache, (predicate, name) ->
+    result = name if predicate is target
+
+  result
+
 collectPredicates = (dir) ->
   predicates = {}
   files = fs.readdirSync(dir)
@@ -23,4 +31,5 @@ collectPredicates = (dir) ->
 
 module.exports =
   get: getPredicate
+  getName: getName
   collect: collectPredicates

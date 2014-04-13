@@ -27,6 +27,7 @@ module.exports =
             else
               console.warn "predicate does not exists: #{pname}"
         else
+          #console.log 'hello'
           value = predicates
           testcase.checker.addPredicate(selector, value, predicate.get('is'))
 

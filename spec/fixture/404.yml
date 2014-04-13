@@ -1,0 +1,8 @@
+request:
+  hostname: net4.ccs.neu.edu
+  path: /home/fuqcool/blueos/rest/notexists
+  method: get
+
+response:
+  expect:
+    statusCode: 404

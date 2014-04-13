@@ -5,6 +5,10 @@ describe 'predicate', ->
   beforeEach ->
     predicate.collect path.resolve(__dirname, '../predicate')
 
+  it 'should get predicate name', ->
+    isArray = predicate.get 'isArray'
+    expect(predicate.getName isArray).toBe 'isArray'
+
   it 'should test isArray', ->
     isArray = predicate.get 'isArray'
 
@@ -31,7 +35,6 @@ describe 'predicate', ->
 
   it 'should test array len', ->
     len = predicate.get 'len'
-
 
     expect(-> len '123').toThrow()
     expect(len [1, 2, 3]).toBe(3)
