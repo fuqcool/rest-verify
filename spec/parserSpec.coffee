@@ -17,7 +17,7 @@ describe 'parser', ->
 
     it 'should parse checker', ->
       expect(->
-        testcase.checker.check(data: [])
+        testcase.checker.check(data: new Array(10), statusCode: 200)
       ).not.toThrow()
 
     it 'should parse nested request', ->

@@ -8,7 +8,6 @@ getPredicate = (name) ->
   if predicatesCache[name]? then predicatesCache[name] else null
 
 collectPredicates = (dir) ->
-  debugger
   predicates = {}
   files = fs.readdirSync(dir)
   files = (f for f in files when path.extname(f) is '.coffee')

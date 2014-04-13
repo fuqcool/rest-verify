@@ -21,6 +21,7 @@ module.exports =
         # headers: @headers
 
       req = http.request options, (res) =>
+        debugger
         res.setEncoding 'utf8'
         body = ''
 
@@ -30,7 +31,8 @@ module.exports =
         res.on 'end', =>
           cb?(
             statusCode: res.statusCode
-            data: @_parse(body)
+            headers: res.headers
+            data: @_parse body
           )
 
       req.on 'end', ->

@@ -9,10 +9,9 @@ response:
   expect:
     data:
       isArray: true
-      len: 11
+      len: 10
 
-    statusCode:
-      is: 200
+    statusCode: 200
 
 then:
   request:

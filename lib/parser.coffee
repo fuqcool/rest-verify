@@ -20,11 +20,15 @@ module.exports =
 
     if obj.response?.expect?
       _.forEach obj.response.expect, (predicates, selector) =>
-        _.forEach predicates, (value, pname) =>
-          if predicate.get(pname)?
-            testcase.checker.addPredicate(selector, value, predicate.get(pname))
-          else
-            console.warn "predicate does not exists: #{pname}"
+        if _.isObject predicates
+          _.forEach predicates, (value, pname) =>
+            if predicate.get(pname)?
+              testcase.checker.addPredicate(selector, value, predicate.get(pname))
+            else
+              console.warn "predicate does not exists: #{pname}"
+        else
+          value = predicates
+          testcase.checker.addPredicate(selector, value, predicate.get('is'))
 
     if obj.then?
       testcase.then = @_makeTestcase(obj.then, obj)
