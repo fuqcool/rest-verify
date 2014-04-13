@@ -1,4 +1,6 @@
 http = require 'http'
+lingo = require 'lingo'
+_ = require 'underscore'
 
 module.exports =
   class HttpRequest
@@ -31,7 +33,7 @@ module.exports =
         res.on 'end', =>
           cb?(
             statusCode: res.statusCode
-            headers: res.headers
+            headers: @_normalizeObject res.headers
             data: @_parse body
           )
 
@@ -51,6 +53,15 @@ module.exports =
 
     _parseJson: (data) ->
       JSON.parse data
+
+    _normalizeObject: (obj) ->
+      result = {}
+
+      _.map obj, (value, key) ->
+        key = key.replace '-', ' '
+        result[lingo.camelcase key] = value
+
+      result
 
     setHeader: (obj) ->
       @headers[k] = v for k, v in obj
