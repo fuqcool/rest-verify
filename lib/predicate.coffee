@@ -8,6 +8,7 @@ getPredicate = (name) ->
   if predicatesCache[name]? then predicatesCache[name] else null
 
 collectPredicates = (dir) ->
+  debugger
   predicates = {}
   files = fs.readdirSync(dir)
   files = (f for f in files when path.extname(f) is '.coffee')
@@ -15,8 +16,8 @@ collectPredicates = (dir) ->
     name = path.basename f, '.coffee'
     try
       predicates[name] = require path.join(dir, f)
-    catch
-      console.warn "failed to load predicat: #{name}"
+    catch e
+      console.warn "failed to load predicat: #{name}, #{e.message}"
 
 
   _.extend(predicatesCache, predicates)

@@ -21,10 +21,7 @@ module.exports =
             console.log 'succeed'
 
     _selectObj: (data, selector) ->
-      selector = selector ? '$'
-      $ = data
-
       try
-        eval(selector)
-      catch
-        data
+        eval('with (data) { eval(selector) }')
+      catch e
+        console.log "unable to parse selector: #{selector}, #{e.message}"

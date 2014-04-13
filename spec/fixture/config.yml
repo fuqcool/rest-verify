@@ -1,15 +1,18 @@
 request:
   hostname: net4.ccs.neu.edu
-  path: /home/fuqcool/blueos/rest/config
+  path: /home/fuqcool/blueos/rest/file
   method: get
 
 response:
   type: json
 
   expect:
-    $:
+    data:
       isArray: true
       len: 11
+
+    statusCode:
+      is: 200
 
 then:
   request:
@@ -18,5 +21,8 @@ then:
     type: json
 
     expect:
-      $:
+      data:
         isArray: true
+
+      statusCode:
+        is: 200

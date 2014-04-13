@@ -12,7 +12,7 @@ describe 'parser', ->
 
     it 'should parse request', ->
       expect(testcase.request.hostname).toBe 'net4.ccs.neu.edu'
-      expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/config'
+      expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/file'
       expect(testcase.request.method).toBe 'get'
 
     it 'should parse checker', ->

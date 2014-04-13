@@ -22,13 +22,16 @@ module.exports =
 
       req = http.request options, (res) =>
         res.setEncoding 'utf8'
-        data = ''
+        body = ''
 
         res.on 'data', (chunk) ->
-          data += chunk
+          body += chunk
 
         res.on 'end', =>
-          cb?(@_parse data)
+          cb?(
+            statusCode: res.statusCode
+            data: @_parse(body)
+          )
 
       req.on 'end', ->
         console.log 'request end'
