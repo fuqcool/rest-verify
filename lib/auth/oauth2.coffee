@@ -30,18 +30,20 @@ module.exports =
         @_handleToken token, -> callback?()
 
     beforeRequest: (request) ->
-      request.headers['Authorization'] = "Bearer #{token.token.access_token}"
+      request.headers['Authorization'] = "Bearer #{@token.token.access_token}"
 
     _handleToken: (obj, callback) ->
-      token = @oauth2.AccessToken.create obj
+      @token = @oauth2.AccessToken.create obj
+
+      debugger
 
       # it's safe to assume that the test will end in an hour
       if firstTime
         firstTime = false
 
-        token.refresh (error, result) ->
+        @token.refresh (error, result) =>
           consocle.log "Refresh token error #{error.message}" if error
-          token = result
+          @token = result
           callback?()
       else
         callback?()

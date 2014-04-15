@@ -8,6 +8,8 @@ module.exports =
       @request = new HttpRequest
       @checker = new DataChecker
       @then = null
+      @successCount = 0
+      @failureCount = 0
 
     run: () ->
       @_doRun(@)
@@ -24,15 +26,21 @@ module.exports =
     _send: (test) ->
       test.request.execute (response) =>
         test.checker.on 'fail', (e) =>
-          console.log """
-            Fail: expect #{e.selector}:#{e.predicate} to be #{e.expectedValue}, actual: #{e.actualValue}
-          """
+          @failureCount++
+          console.log ("""
+          Fail: expect #{e.selector}:#{e.predicate} to be #{e.expectedValue}, actual: #{e.actualValue}
+          """)
+
         test.checker.on 'success', =>
-          console.log 'success'
+          @successCount++
 
         test.checker.check(response)
 
         if test.then?
           @_doRun(test.then)
         else
-          @emit 'complete'
+          stats =
+            success: @successCount
+            failure: @failureCount
+
+          @emit 'complete', stats
