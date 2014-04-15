@@ -1,29 +1,34 @@
-http = require 'http'
 lingo = require 'lingo'
 _ = require 'underscore'
+
+DEFAULT_PORT =
+  http: 80
+  https: 443
 
 module.exports =
   class HttpRequest
     constructor: ->
       @headers = {}
-      @port = 80
       @path = '/'
       @method = 'get'
       @hostname = null
       @host = '127.0.0.1'
       @type = 'json'
+      @protocol = 'http'
 
     execute: (cb) ->
+      @port = @port ? @_getDefaultPort()
       options =
         hostname: @hostname
-        # host: @host
         port: @port
         path: @path
         method: @method
-        # headers: @headers
+        headers: @headers
 
-      req = http.request options, (res) =>
-        console.log "#{@method} #{@hostname + @path}:#{@port} ..."
+      client = @_getClient()
+
+      req = client.request options, (res) =>
+        console.log "#{@method} #{@protocol}://#{@hostname + @path}:#{@port} ..."
         res.setEncoding 'utf8'
         body = ''
 
@@ -65,6 +70,15 @@ module.exports =
         result[lingo.camelcase key] = value
 
       result
+
+    _getDefaultPort: ->
+      DEFAULT_PORT[@protocol]
+
+    _getClient: ->
+      if @protocol is 'https'
+        require 'https'
+      else
+        require 'http'
 
     setHeader: (obj) ->
       @headers[k] = v for k, v in obj

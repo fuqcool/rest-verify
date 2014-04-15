@@ -18,14 +18,12 @@ module.exports =
           result = if predicate then predicate(actualValue) else actualValue
 
           if result isnt expectValue
-            console.log 'fail'
             @emit('fail',
                   selector: selector
                   predicate: pname
                   expectedValue: expectValue
                   actualValue: result)
           else
-            console.log 'success'
             @emit('success')
 
     _selectObj: (data, selector) ->

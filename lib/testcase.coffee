@@ -1,8 +1,10 @@
 HttpRequest = require './http'
 DataChecker = require './checker'
+auth = require './auth'
+EventEmitter = require('events').EventEmitter
 
 module.exports =
-  class TestCase
+  class TestCase extends EventEmitter
     constructor: ->
       @request = new HttpRequest
       @checker = new DataChecker
@@ -12,6 +14,13 @@ module.exports =
       @_doRun(@)
 
     _doRun: (test) ->
+      if test.request.auth?
+        # if there is auth option, authenticate first
+        auth test.request.auth, test.request, => @_send test
+      else
+        @_send test
+
+    _send: (test) ->
       test.request.execute (response) =>
         test.checker.on 'fail', (e) =>
           console.log """
@@ -24,3 +33,5 @@ module.exports =
 
         if test.then?
           @_doRun(test.then)
+        else
+          @emit 'complete'

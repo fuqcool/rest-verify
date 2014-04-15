@@ -9,6 +9,7 @@
     "underscore": "~1.6.0",
     "jasmine-node": "~1.14.3",
     "optimist": "~0.6.1",
-    "lingo": "0.0.5"
+    "lingo": "~0.0.5",
+    "simple-oauth2": "~0.1.9"
   }
 }
