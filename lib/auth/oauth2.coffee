@@ -2,7 +2,6 @@ fs = require 'fs'
 Auth = require './auth'
 
 readline = require 'readline'
-read = readline.createInterface process.stdin, process.stdout
 
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 TOKEN_FILE = '_oauth2_token'
@@ -35,8 +34,6 @@ module.exports =
     _handleToken: (obj, callback) ->
       @token = @oauth2.AccessToken.create obj
 
-      debugger
-
       # it's safe to assume that the test will end in an hour
       if firstTime
         firstTime = false
@@ -55,6 +52,11 @@ module.exports =
       })
 
       console.log "Please visit #{authUri}"
+
+      read = readline.createInterface(
+        input: process.stdin
+        output: process.stdout
+      )
 
       read.question "Enter authorization code:", (code) =>
         @oauth2.AuthCode.getToken({
