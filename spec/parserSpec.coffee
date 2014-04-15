@@ -1,14 +1,17 @@
 parser = require '../lib/parser'
 fs = require 'fs'
 _ = require 'underscore'
+path = require 'path'
 
 describe 'parser', ->
   testcase = null
 
+  parseFromFile = (f) ->
+    parser.parse f
+
   describe 'parse config', ->
     beforeEach ->
-      content = fs.readFileSync 'spec/fixture/config.yml'
-      testcase = parser.parse content.toString()
+      testcase = parseFromFile(path.join(__dirname, 'fixture/config.yml'))
 
     it 'should parse request', ->
       expect(testcase.request.hostname).toBe 'net4.ccs.neu.edu'
@@ -32,3 +35,12 @@ describe 'parser', ->
       expect(testcase.request.hostname).toBe 'net4.ccs.neu.edu'
       expect(testcase.request.path).toBe '/home/fuqcool/blueos/rest/app'
       expect(testcase.request.method).toBe 'get'
+
+  describe 'parse use', ->
+    beforeEach ->
+      testcase = parseFromFile(path.join(__dirname, 'fixture/use.yml'))
+
+    it 'should use config of another file', ->
+      expect(testcase.auth.config.type).toBe 'oauth2'
+      expect(testcase.request.hostname).toBe 'example.com'
+      expect(testcase.request.path).toBe '/api'

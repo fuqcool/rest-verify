@@ -1,0 +1,10 @@
+request:
+
+auth:
+    type: oauth2
+    clientId: 180811068892-mpkpksmr04prkibasimts7s7ghhru1p6.apps.googleusercontent.com
+    clientSecret: 8r2DrBJIQSkn_bCAzivwTsMD
+    scope: https://www.googleapis.com/auth/drive
+    tokenPath: /token
+    authPath: /auth
+    site: https://accounts.google.com/o/oauth2

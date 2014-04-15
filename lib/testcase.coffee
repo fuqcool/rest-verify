@@ -1,6 +1,5 @@
 HttpRequest = require './http'
 DataChecker = require './checker'
-auth = require './auth'
 EventEmitter = require('events').EventEmitter
 
 module.exports =
@@ -14,9 +13,11 @@ module.exports =
       @_doRun(@)
 
     _doRun: (test) ->
-      if test.request.auth?
+      if test.auth?
         # if there is auth option, authenticate first
-        auth test.request.auth, test.request, => @_send test
+        test.auth.authenticate =>
+          test.auth.beforeRequest test.request
+          @_send test
       else
         @_send test
 
