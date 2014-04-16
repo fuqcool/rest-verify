@@ -3,8 +3,8 @@
   "version": "0.0.6",
   "scripts": {
     "start": "coffee lib/main.coffee",
-    "prepublish": "coffee --bare --compile --output lib lib; coffee --bare --compile --output bin bin; cat shebang bin/rest-verify.js > bin/rest-verify",
-    "postpublish": "rm -f lib/*.js lib/*/*.js bin/rest-verify bin/rest-verify.js",
+    "prepublish": "coffee --bare --compile --output lib/ src/lib/; coffee --bare --compile --output bin/ src/bin/; cat shebang bin/rest-verify.js > bin/rest-verify; rm bin/rest-verify.js",
+    "postpublish": "rm -rf lib/ bin/",
     "test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js --coffee spec/"
   },
   "main": "bin/rest-verify",

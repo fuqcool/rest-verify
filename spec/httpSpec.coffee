@@ -1,4 +1,4 @@
-HttpRequest = require '../lib/http'
+HttpRequest = require '../src/lib/http'
 
 describe 'http', ->
   request = null

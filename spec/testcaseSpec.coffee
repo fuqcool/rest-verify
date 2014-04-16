@@ -1,4 +1,4 @@
-Testcase = require '../lib/testcase.coffee'
+Testcase = require '../src/lib/testcase'
 
 xdescribe 'testcase', ->
   testcase = null

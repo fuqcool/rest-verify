@@ -1,9 +1,9 @@
-predicate = require '../lib/predicate'
+predicate = require '../src/lib/predicate'
 path = require 'path'
 
 describe 'predicate', ->
   beforeEach ->
-    predicate.collect path.resolve(__dirname, '../lib/predicate')
+    predicate.collect path.resolve(__dirname, '../src/lib/predicate')
 
   it 'should get predicate name', ->
     isArray = predicate.get 'isArray'

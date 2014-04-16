@@ -1,4 +1,4 @@
-parser = require '../lib/parser'
+parser = require '../src/lib/parser'
 fs = require 'fs'
 _ = require 'underscore'
 path = require 'path'

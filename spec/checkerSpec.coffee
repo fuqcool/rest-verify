@@ -1,4 +1,4 @@
-DataChecker = require '../lib/checker'
+DataChecker = require '../src/lib/checker'
 
 describe 'Data checker', ->
   checker = null
