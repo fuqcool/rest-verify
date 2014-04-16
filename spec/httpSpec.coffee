@@ -36,3 +36,15 @@ describe 'http', ->
     queryStr = HttpRequest.prototype._encodeParams params
 
     expect(queryStr).toBe '?foo=bar&s=%20'
+
+  it 'should return empty string if params is empty', ->
+    params = {}
+    queryStr = HttpRequest.prototype._encodeParams params
+
+    expect(queryStr).toBe ''
+
+  it 'should return empty string if params is null', ->
+    params = null
+    queryStr = HttpRequest.prototype._encodeParams params
+
+    expect(queryStr).toBe ''

@@ -15,11 +15,11 @@ module.exports =
       @host = '127.0.0.1'
       @type = 'json'
       @protocol = 'http'
-      @params = {}
+      @data = {}
 
     execute: (cb) ->
       port = @port ? @_getDefaultPort()
-      path = @path + @_encodeParams(@params)
+      path = @path + @_encodeParams(@data)
       options =
         hostname: @hostname
         port: port
@@ -94,4 +94,4 @@ module.exports =
         encodedValue = encodeURIComponent value
         "#{key}=#{encodedValue}"
 
-      "?" + parts.join '&'
+      if parts.length is 0 then '' else '?' + parts.join '&'
