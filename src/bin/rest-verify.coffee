@@ -12,6 +12,10 @@ predicate.collect(path.resolve(__dirname, '../lib/predicate'))
 
 # get config files
 configFiles = []
+
+if dirs.length is 0
+  dirs = ['.']
+
 for dir in dirs
   files = fs.readdirSync dir
   files = (path.normalize(path.join(dir, f)) for f in files)
