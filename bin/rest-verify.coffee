@@ -8,7 +8,7 @@ run = require '../lib/run'
 dirs = argv._
 
 # load predicates
-predicate.collect(path.resolve(__dirname, '../predicate'))
+predicate.collect(path.resolve(__dirname, '../lib/predicate'))
 
 # get config files
 configFiles = []

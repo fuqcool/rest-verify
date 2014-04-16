@@ -3,7 +3,7 @@ path = require 'path'
 
 describe 'predicate', ->
   beforeEach ->
-    predicate.collect path.resolve(__dirname, '../predicate')
+    predicate.collect path.resolve(__dirname, '../lib/predicate')
 
   it 'should get predicate name', ->
     isArray = predicate.get 'isArray'
