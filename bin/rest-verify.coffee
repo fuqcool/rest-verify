@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 fs = require 'fs'
 path = require 'path'
 argv = require('optimist').argv
