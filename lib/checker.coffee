@@ -1,6 +1,7 @@
 _ = require 'underscore'
 predicateManager = require './predicate'
 EventEmitter = require('events').EventEmitter
+logger = require './logger'
 
 module.exports =
   class DataChecker extends EventEmitter
@@ -35,4 +36,4 @@ module.exports =
       try
         eval('with (data) { eval(selector) }')
       catch e
-        console.log "unable to parse selector: #{selector}, #{e.message}"
+        logger.red "unable to parse selector: #{selector}, #{e.message}"

@@ -25,7 +25,7 @@ module.exports =
           @_handleToken token, -> callback?()
           return
 
-      @_fetchNewToken (token) ->
+      @_fetchNewToken (token) =>
         @_handleToken token, -> callback?()
 
     beforeRequest: (request) ->
@@ -48,7 +48,7 @@ module.exports =
     _fetchNewToken: (callback) ->
       authUri = @oauth2.AuthCode.authorizeURL({
         redirect_uri: REDIRECT_URI
-        scope: config.scope
+        scope: @config.scope
       })
 
       console.log "Please visit #{authUri}"

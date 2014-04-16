@@ -1,6 +1,7 @@
 HttpRequest = require './http'
 DataChecker = require './checker'
 EventEmitter = require('events').EventEmitter
+logger = require './logger'
 
 module.exports =
   class TestCase extends EventEmitter
@@ -27,7 +28,7 @@ module.exports =
       test.request.execute (response) =>
         test.checker.on 'fail', (e) =>
           @failureCount++
-          console.log ("""
+          logger.red ("""
           Fail: expect #{e.selector}:#{e.predicate} to be #{e.expectedValue}, actual: #{e.actualValue}
           """)
 
