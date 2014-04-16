@@ -36,5 +36,18 @@ describe 'predicate', ->
   it 'should test array len', ->
     len = predicate.get 'len'
 
-    expect(-> len '123').toThrow()
-    expect(len [1, 2, 3]).toBe(3)
+    # should work on string
+    expect(len 'hello').toBe 5
+
+    # should work on array
+    expect(len [1, 2, 3]).toBe 3
+
+    # should not work on other objects
+    expect(-> len 123).toThrow()
+
+  it 'should test match string', ->
+    match = predicate.get 'match'
+    result = match('hello')
+
+    expect(result("^h.*")).toBe true
+    expect(result("^ello")).toBe false

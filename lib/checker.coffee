@@ -10,18 +10,23 @@ module.exports =
     check: (data) ->
       p(data) for p in @predicates
 
-    addPredicate: (selector, expectValue, predicate) ->
+    addPredicate: (selector, expectedValue, predicate) ->
       @predicates.push do =>
         (data) =>
           pname = predicateManager.getName(predicate)
           actualValue = @_selectObj data, selector
-          result = if predicate then predicate(actualValue) else actualValue
 
-          if result isnt expectValue
+          result = if predicate then predicate actualValue else actualValue
+
+          if _.isFunction result
+            result = result(expectedValue)
+            expectedValue = true
+
+          if result isnt expectedValue
             @emit('fail',
                   selector: selector
                   predicate: pname
-                  expectedValue: expectValue
+                  expectedValue: expectedValue
                   actualValue: result)
           else
             @emit('success')
