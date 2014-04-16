@@ -1,4 +1,3 @@
-**/*.coffee
 spec/
 .travis.yml
 .gitignore
