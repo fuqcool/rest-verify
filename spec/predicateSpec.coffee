@@ -51,3 +51,10 @@ describe 'predicate', ->
 
     expect(result("^h.*")).toBe true
     expect(result("^ello")).toBe false
+
+  it 'should check key exists in object', ->
+    existsKey = predicate.get 'existsKey'
+    result = existsKey(foo: 'bar')
+
+    expect(result('foo')).toBe true
+    expect(result('bar')).toBe false

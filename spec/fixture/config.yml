@@ -11,6 +11,9 @@ response:
       isArray: true
       len: 11
 
+    data[0].extension:
+      match: ^\..*
+
     statusCode: 200
 
     headers.contentType: text/html
