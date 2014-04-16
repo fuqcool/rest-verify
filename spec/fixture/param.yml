@@ -1,0 +1,16 @@
+request:
+  hostname: net4.ccs.neu.edu
+  path: /home/fuqcool/blueos/rest/config
+  method: get
+  params:
+    key: wallpaper
+
+response:
+  type: text
+
+  expect:
+    statusCode: 200
+
+    data:
+      isString: true
+      match: http://.*

@@ -38,6 +38,9 @@ module.exports =
               if parent? then parent.request,
               if obj? then obj.request)
 
+    if obj.response?.type?
+      testcase.request.type = obj.response.type
+
     if obj.auth?
       if obj.auth.type is 'oauth2'
         testcase.auth = new OAuth2 obj.auth

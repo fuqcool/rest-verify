@@ -30,3 +30,9 @@ describe 'http', ->
   it 'should normalize headers to camelcase', ->
     obj = HttpRequest.prototype._normalizeObject {"ab-cd": "ef"}
     expect(obj).toEqual {"abCd": "ef"}
+
+  it 'should encode params to query string', ->
+    params = foo: 'bar', s: ' '
+    queryStr = HttpRequest.prototype._encodeParams params
+
+    expect(queryStr).toBe '?foo=bar&s=%20'

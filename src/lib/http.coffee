@@ -15,20 +15,22 @@ module.exports =
       @host = '127.0.0.1'
       @type = 'json'
       @protocol = 'http'
+      @params = {}
 
     execute: (cb) ->
-      @port = @port ? @_getDefaultPort()
+      port = @port ? @_getDefaultPort()
+      path = @path + @_encodeParams(@params)
       options =
         hostname: @hostname
-        port: @port
-        path: @path
+        port: port
+        path: path
         method: @method
         headers: @headers
 
       client = @_getClient()
 
       req = client.request options, (res) =>
-        console.log "#{@method} #{@protocol}://#{@hostname + @path}:#{@port} ..."
+        console.log "#{@method} #{@protocol}://#{@hostname + path}:#{port} ..."
         res.setEncoding 'utf8'
         body = ''
 
@@ -56,8 +58,10 @@ module.exports =
     _parse: (data) ->
       if @type is 'json'
         @_parseJson data
+      else if @type is 'text'
+        data
       else
-        null
+        @_parseJson data
 
     _parseJson: (data) ->
       JSON.parse data
@@ -82,3 +86,12 @@ module.exports =
 
     setHeader: (obj) ->
       @headers[k] = v for k, v in obj
+
+    _encodeParams: (obj) ->
+      return '' if not _.isObject(obj)
+
+      parts = _.map obj, (value, key) ->
+        encodedValue = encodeURIComponent value
+        "#{key}=#{encodedValue}"
+
+      "?" + parts.join '&'
