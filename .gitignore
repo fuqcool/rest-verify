@@ -2,3 +2,5 @@
 node_modules/
 *.log
 *_token
+bin/
+lib/
