@@ -16,6 +16,6 @@
     "optimist": "~0.6.1",
     "lingo": "~0.0.5",
     "simple-oauth2": "~0.1.9",
-    "cli-color": "^0.2.3"
+    "cli-color": "~0.2.3"
   }
 }
