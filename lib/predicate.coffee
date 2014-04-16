@@ -18,9 +18,9 @@ getName = (target) ->
 collectPredicates = (dir) ->
   predicates = {}
   files = fs.readdirSync(dir)
-  files = (f for f in files when path.extname(f) is '.coffee')
+  files = (f for f in files when path.extname(f) in ['.coffee', '.js'])
   for f in files
-    name = path.basename f, '.coffee'
+    name = path.basename(f, path.extname(f))
     try
       predicates[name] = require path.join(dir, f)
     catch e
