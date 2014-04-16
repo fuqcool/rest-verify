@@ -1,14 +1,14 @@
 {
   "name": "rest-verify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "coffee lib/main.coffee",
-    "prepublish": "coffee --bare --compile --output lib lib; coffee --bare --compile --output bin bin",
-    "postpublish": "rm -f lib/*.js lib/*/*.js bin/*.js",
+    "prepublish": "coffee --bare --compile --output lib lib; coffee --bare --compile --output bin bin; mv bin/rest-verify.js bin/rest-verify",
+    "postpublish": "rm -f lib/*.js lib/*/*.js bin/rest-verify",
     "test": "node node_modules/jasmine-node/lib/jasmine-node/cli.js --coffee spec/"
   },
-  "main": "bin/rest-verify.js",
-  "bin": "bin/rest-verify.js",
+  "main": "bin/rest-verify",
+  "bin": "bin/rest-verify",
   "dependencies": {
     "js-yaml": "~3.0.2",
     "underscore": "~1.6.0",
