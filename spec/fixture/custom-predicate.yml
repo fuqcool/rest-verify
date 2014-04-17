@@ -1,0 +1,14 @@
+request:
+  hostname: net4.ccs.neu.edu
+  path: /home/fuqcool/blueos/rest/app
+  param:
+    name: wallpaper
+
+response:
+  type: json
+
+  expect:
+    data:
+      isApp: true
+
+    statusCode: 200

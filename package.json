@@ -1,6 +1,6 @@
 {
   "name": "rest-verify",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "scripts": {
     "start": "coffee lib/main.coffee",
     "prepublish": "coffee --bare --compile --output lib/ src/lib/; coffee --bare --compile --output bin/ src/bin/; cat shebang bin/rest-verify.js > bin/rest-verify; rm bin/rest-verify.js",

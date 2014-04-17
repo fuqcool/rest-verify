@@ -6,6 +6,8 @@ _ = require 'underscore'
 Testcase = require './testcase'
 predicate = require './predicate'
 OAuth2 = require './auth/oauth2'
+checkerUtil = require './checker-util'
+
 
 
 module.exports =
@@ -46,17 +48,7 @@ module.exports =
         testcase.auth = new OAuth2 obj.auth
 
     if obj.response?.expect?
-      _.forEach obj.response.expect, (predicates, selector) =>
-        if _.isObject predicates
-          _.forEach predicates, (value, pname) =>
-            if predicate.get(pname)?
-              testcase.checker.addPredicate(selector, value, predicate.get(pname))
-            else
-              console.warn "predicate does not exists: #{pname}"
-        else
-          #console.log 'hello'
-          value = predicates
-          testcase.checker.addPredicate(selector, value, predicate.get('is'))
+      testcase.checker = checkerUtil.makeDataCheckerFromObj(obj.response.expect)
 
     if obj.then?
       testcase.then = @_makeTestcase(obj.then, obj)

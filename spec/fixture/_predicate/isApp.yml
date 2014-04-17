@@ -1,0 +1,11 @@
+height:
+  isNumber: true
+
+width:
+  isNumber: true
+
+icon:
+  isString: true
+
+name:
+  isString: true

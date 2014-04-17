@@ -15,11 +15,12 @@ module.exports =
       @host = '127.0.0.1'
       @type = 'json'
       @protocol = 'http'
-      @data = {}
+      @param = {}
 
     execute: (cb) ->
       port = @port ? @_getDefaultPort()
-      path = @path + @_encodeParams(@data)
+      path = @path + @_encodeParams(@param)
+
       options =
         hostname: @hostname
         port: port
