@@ -20,15 +20,19 @@ module.exports =
           result = if predicate then predicate actualValue else actualValue
 
           if _.isFunction result
-            result = result(expectedValue)
-            expectedValue = true
+            _result = result(expectedValue)
+            _expectedValue = true
+          else
+            _result = result
+            _expectedValue = expectedValue
 
-          if result isnt expectedValue
+          if _result isnt _expectedValue
             @emit('fail',
                   selector: selector
                   predicate: pname
                   expectedValue: expectedValue
-                  actualValue: result)
+                  actualValue: result
+                 )
           else
             @emit('success')
 
