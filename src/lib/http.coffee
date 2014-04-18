@@ -20,6 +20,7 @@ module.exports =
     execute: (cb) ->
       port = @port ? @_getDefaultPort()
       path = @path + @_encodeParams(@param)
+      startTime = null
 
       options =
         hostname: @hostname
@@ -39,11 +40,16 @@ module.exports =
           body += chunk
 
         res.on 'end', =>
+          stopTime = new Date
+
+          console.log "timecost: #{stopTime.getTime() - startTime.getTime()}ms"
+
           if res.statusCode is 200
             cb?(
               statusCode: res.statusCode
               headers: @_normalizeObject res.headers
               data: @_parse body
+              timeCost: stopTime.getTime() - startTime.getTime()
             )
           else
             cb?(statusCode: res.statusCode)
@@ -55,6 +61,7 @@ module.exports =
         console.log 'request failed' + e.message
 
       req.end()
+      startTime = new Date
 
     _parse: (data) ->
       if @type is 'json'

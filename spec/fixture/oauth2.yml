@@ -8,6 +8,9 @@ request:
 
 response:
   expect:
+    timeCost:
+      lessThan: 2000
+
     statusCode: 200
 
     data:
