@@ -31,7 +31,7 @@ module.exports =
                   selector: selector
                   predicate: pname
                   expectedValue: expectedValue
-                  actualValue: result
+                  actualValue: actualValue
                  )
           else
             @emit('success')
