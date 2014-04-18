@@ -9,7 +9,7 @@ request:
     uploadType: multipart
   headers:
     Content-Type: multipart/related; boundary="myfile"
-  data: |
+  body: |
          --myfile
          Content-Type: application/json; charset=UTF-8
 

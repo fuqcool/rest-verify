@@ -16,12 +16,11 @@ module.exports =
       @type = 'json'
       @protocol = 'http'
       @params = {}
-      @data = null
+      @body = null
 
     execute: (cb) ->
-      if @data?
-        debugger
-        @headers['Content-Length'] = @data.length
+      if @body?
+        @headers['Content-Length'] = @body.length
 
       port = @port ? @_getDefaultPort()
       path = @path + @_encodeParams(@params)
@@ -65,8 +64,8 @@ module.exports =
       req.on 'error', (e) ->
         console.log 'request failed' + e.message
 
-      if @data?
-        req.write @data
+      if @body?
+        req.write @body
 
       req.end()
       startTime = new Date
