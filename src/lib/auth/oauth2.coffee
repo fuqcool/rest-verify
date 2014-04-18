@@ -6,8 +6,6 @@ readline = require 'readline'
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 TOKEN_FILE = '_oauth2_token'
 
-firstTime = true
-
 module.exports =
   class OAuth2 extends Auth
     authenticate: (callback) ->
@@ -34,15 +32,9 @@ module.exports =
     _handleToken: (obj, callback) ->
       @token = @oauth2.AccessToken.create obj
 
-      # it's safe to assume that the test will end in an hour
-      if firstTime
-        firstTime = false
-
-        @token.refresh (error, result) =>
-          consocle.log "Refresh token error #{error.message}" if error
-          @token = result
-          callback?()
-      else
+      @token.refresh (error, result) =>
+        consocle.log "Refresh token error #{error.message}" if error
+        @token = result
         callback?()
 
     _fetchNewToken: (callback) ->

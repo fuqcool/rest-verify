@@ -6,9 +6,7 @@ yaml = require 'js-yaml'
 predicatesCache = {}
 
 getPredicate = (name) ->
-  if name is 'isApp'
-    debugger
-
+  debugger if name is 'isObject'
   if predicatesCache[name]? then predicatesCache[name] else null
 
 getName = (target) ->

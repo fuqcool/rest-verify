@@ -1,0 +1,33 @@
+use: _base
+
+request:
+  hostname: www.googleapis.com
+  protocol: https
+  path: /upload/drive/v2/files
+  method: post
+  params:
+    uploadType: multipart
+  headers:
+    Content-Type: multipart/related; boundary="myfile"
+  data: |
+         --myfile
+         Content-Type: application/json; charset=UTF-8
+
+         {"title": "Test File"}
+
+         --myfile
+         Content-Type: text/plain
+
+         Hello, world!
+
+         --myfile--
+
+response:
+  expect:
+    timeCost:
+      lessThan: 2000
+
+    statusCode: 200
+
+    data:
+      isObject: true

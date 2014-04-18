@@ -13,7 +13,6 @@ response:
 
     data[0].extension:
       isString: true
-      # match: ^\..*
 
     statusCode: 200
 

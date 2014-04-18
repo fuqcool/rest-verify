@@ -2,7 +2,7 @@ request:
   hostname: net4.ccs.neu.edu
   path: /home/fuqcool/blueos/rest/config
   method: get
-  param:
+  params:
     key: wallpaper
 
 response:

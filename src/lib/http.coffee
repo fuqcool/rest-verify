@@ -15,11 +15,16 @@ module.exports =
       @host = '127.0.0.1'
       @type = 'json'
       @protocol = 'http'
-      @param = {}
+      @params = {}
+      @data = null
 
     execute: (cb) ->
+      if @data?
+        debugger
+        @headers['Content-Length'] = @data.length
+
       port = @port ? @_getDefaultPort()
-      path = @path + @_encodeParams(@param)
+      path = @path + @_encodeParams(@params)
       startTime = null
 
       options =
@@ -32,7 +37,7 @@ module.exports =
       client = @_getClient()
 
       req = client.request options, (res) =>
-        console.log "#{@method} #{@protocol}://#{@hostname + path}:#{port} ..."
+        console.log "#{@method.toUpperCase()} #{@protocol}://#{@hostname + path}:#{port} ..."
         res.setEncoding 'utf8'
         body = ''
 
@@ -60,12 +65,18 @@ module.exports =
       req.on 'error', (e) ->
         console.log 'request failed' + e.message
 
+      if @data?
+        req.write @data
+
       req.end()
       startTime = new Date
 
     _parse: (data) ->
       if @type is 'json'
-        @_parseJson data
+        try
+          @_parseJson data
+        catch
+          data
       else if @type is 'text'
         data
       else
