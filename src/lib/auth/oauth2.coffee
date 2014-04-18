@@ -33,7 +33,7 @@ module.exports =
       @token = @oauth2.AccessToken.create obj
 
       @token.refresh (error, result) =>
-        consocle.log "Refresh token error #{error.message}" if error
+        console.log "Refresh token error #{error.message}" if error
         @token = result
         callback?()
 
